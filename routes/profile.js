@@ -12,6 +12,6 @@ router.route('/')
 
 router.route('/:name')
 .get(getProfileByName)
-.patch(updateProfile)
+.patch(verifyToken, updateProfile)
 
 module.exports = router

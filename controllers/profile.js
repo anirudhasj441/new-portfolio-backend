@@ -9,7 +9,7 @@ const getProfile = async (req, res) => {
 }
 
 const getProfileByName = async (req, res) => {
-    let profile = await Profile.find({name: req.params.name}).limit(1)
+    let profile = await Profile.findOne({name: req.params.name})
     console.log(req.params.name)
     res.status(200).json({
         data: profile
