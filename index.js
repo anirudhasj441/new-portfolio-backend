@@ -3,7 +3,8 @@ const express = require("express");
 const {connectMongoDB} = require('./middlewares')
 
 const profileRouter = require('./routes/profile');
-const authRoutes = require('./routes/auth')
+const authRoutes = require('./routes/auth');
+const uploadRoutes = require('./routes/upload');
 
 require('dotenv').config()
 
@@ -16,6 +17,8 @@ app.use(connectMongoDB(process.env.MONGO_URI))
 app.use('/profile', profileRouter);
 
 app.use('/auth', authRoutes);
+
+app.use('/upload', uploadRoutes);
 
 app.use((req, res, next) => {
   return res.status(404).json({
