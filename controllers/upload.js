@@ -35,11 +35,20 @@ const getSkillIconUploadUrl = async (req, res) => {
     let profile = await Profile.findOne({name: req.params.name});
     let skill = profile.skills.id(req.params.skill_id);
 
+    let ext = filename.split('.')[1];
+
+    let contentTypes = {
+        svg: 'image/svg+xml',
+        png: 'image/png',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg'
+    } 
     const key = `uploads/${req.params.name}/skill_icons/${skill.skill}.${filename.split('.')[1]}`;
 
     const command = new PutObjectCommand({
         Bucket: bucket,
-        Key: key
+        Key: key,
+        ContentType: contentTypes[ext]
     })
 
     const url = await getSignedUrl(s3Client, command);
